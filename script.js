@@ -39,25 +39,35 @@ function playRound(playerSelection, computerSelection){
 
 }
 
-function game(){
-    let playerScore = 0
-    let computerScore = 0
-    for (let i = 0; i < 5; i++) {
-        let winner = playRound(playerChoise(), computerPlay())
-        if(winner == "Player"){
-            playerScore++
-        }else if(winner == "Computer"){
-            computerScore++
-        }else{
-            playerScore = playerScore
-            computerScore = computerScore
-        }
-    }
-    if (playerScore>computerScore){
-        console.log(`You win! You scored ${playerScore} and the computer scored ${computerScore}`)
-    }else{
-        console.log(`You lose! You scored ${playerScore} and the computer scored ${computerScore}`)
-    }
-}
+// function game(){
+//     let playerScore = 0
+//     let computerScore = 0
+//     for (let i = 0; i < 5; i++) {
+//         let winner = playRound(playerChoise(), computerPlay())
+//         if(winner == "Player"){
+//             playerScore++
+//         }else if(winner == "Computer"){
+//             computerScore++
+//         }else{
+//             playerScore = playerScore
+//             computerScore = computerScore
+//         }
+//     }
+//     if (playerScore>computerScore){
+//         console.log(`You win! You scored ${playerScore} and the computer scored ${computerScore}`)
+//     }else{
+//         console.log(`You lose! You scored ${playerScore} and the computer scored ${computerScore}`)
+//     }
+// }
 
-game()
+// game()
+
+//UI Logic
+const buttons = document.querySelectorAll('.button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', function(e){
+        playRound(e.target.innerText, computerPlay())
+    })
+})
+
