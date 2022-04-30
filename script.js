@@ -1,13 +1,15 @@
 let choices = ["Rock", "Paper", "Scissors"]
-let playerScore = 0
-let computerScore = 0
+let playerScore = 0;
+let computerScore = 0;
+let roundTextContent = '';
 
-//UI Logic variables
+//UI variables
 const buttons = document.querySelectorAll('.button');
 
-//Creating
+//Reference DOM elements
 let playerScoreText = document.querySelector('.score-text.player> div');
 let computerScoreText = document.querySelector('.score-text.computer> div');
+let roundText = document.querySelector('#round-text');
 
 
 function computerPlay(){
@@ -32,27 +34,39 @@ function checkWinner(player, computer){
 }
 
 function updateScore(roundWinner){
-    if(roundWinner == "Player") return playerScore++;;
-    if(roundWinner == "Computer") return computerScore++;
-    if(roundWinner == "Tie") return console.log("It's a Tie! No points!");
+    if(roundWinner == "Player"){
+        playerScore++;
+        return roundWinner;
+    } 
+    if(roundWinner == "Computer"){
+        computerScore++;
+        return roundWinner;
+    }
+    if(roundWinner == "Tie") return roundWinner;
+}
+
+function updateRoundTextContent(winner, playerChoise, computerChoice){
+    if(winner == "Player") return `You won! ${playerChoise} beats ${computerChoice}!`;
+    if(winner == "Computer") return `You lost.. ${computerChoice} beats ${playerChoise}`;
+    if(winner == "Tie") return `It's a tie, you both played ${playerChoise}`;
 }
 
 function playRound(playerSelection, computerSelection){
-    let playerChoise = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)
-    let computerChoice = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)
-
-    updateScore(checkWinner(playerChoise, computerChoice));
-    console.log("Score Player: " + playerScore + " Computer:" + computerScore);
-
+    return updateScore(checkWinner(playerSelection, computerSelection));
 }
 
 
 //UI Logic
 buttons.forEach(button => {
     button.addEventListener('click', function(e){
-        playRound(e.target.innerText, computerPlay());
+        let computerChoice = computerPlay();
+        let roundWinner = playRound(e.target.innerText, computerChoice);
+        
         playerScoreText.textContent = playerScore;
         computerScoreText.textContent = computerScore;
+
+
+        roundText.textContent = updateRoundTextContent(roundWinner, e.target.innerText, computerChoice);
 
     })
 })
