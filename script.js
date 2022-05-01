@@ -76,27 +76,9 @@ function click(e = new Event()){
         })
     }
 }
-//UI Logic
 
-// buttons.forEach(button => {
-//     button.addEventListener('click', function(e){
-//         let computerChoice = computerPlay();
-//         let roundWinner = playRound(e.target.innerText, computerChoice);
-        
-//         playerScoreText.textContent = playerScore;
-//         computerScoreText.textContent = computerScore;
-
-//         roundText.textContent = updateRoundTextContent(roundWinner, e.target.innerText, computerChoice);
-//     })
-// })
 
 buttons.forEach(button => {
     button.addEventListener('click', click);
 })
-
-
-
-
-// if(playerScore == 5) roundTextContent.textContent = `Player won with a score of ${playerScore} against ${computerScore}`;
-// if(computerScore == 5) roundTextContent.textContent = `Computer won with a score of ${computerScore} against ${playerScore}`;
 
