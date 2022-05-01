@@ -2,7 +2,8 @@ let choices = ["Rock", "Paper", "Scissors"]
 let playerScore = 0;
 let computerScore = 0;
 let roundTextContent = '';
-
+let gameOver = false;
+let winner = ''
 //UI variables
 const buttons = document.querySelectorAll('.button');
 
@@ -54,20 +55,48 @@ function updateRoundTextContent(winner, playerChoise, computerChoice){
 function playRound(playerSelection, computerSelection){
     return updateScore(checkWinner(playerSelection, computerSelection));
 }
+function click(e = new Event()){
+    let computerChoice = computerPlay();
+    let roundWinner = playRound(e.target.innerText, computerChoice);
+    
+    playerScoreText.textContent = playerScore;
+    computerScoreText.textContent = computerScore;
 
+    roundText.textContent = updateRoundTextContent(roundWinner, e.target.innerText, computerChoice);
 
+    if(playerScore >=5 || computerScore >= 5){
+        if(playerScore>computerScore){
+            winner = "Player"
+        }else{
+            winner = "Computer"
+        }
+        roundText.textContent = `The winner is ${winner}!`;
+        buttons.forEach(button => {
+            button.removeEventListener('click', click)
+        })
+    }
+}
 //UI Logic
-buttons.forEach(button => {
-    button.addEventListener('click', function(e){
-        let computerChoice = computerPlay();
-        let roundWinner = playRound(e.target.innerText, computerChoice);
+
+// buttons.forEach(button => {
+//     button.addEventListener('click', function(e){
+//         let computerChoice = computerPlay();
+//         let roundWinner = playRound(e.target.innerText, computerChoice);
         
-        playerScoreText.textContent = playerScore;
-        computerScoreText.textContent = computerScore;
+//         playerScoreText.textContent = playerScore;
+//         computerScoreText.textContent = computerScore;
 
+//         roundText.textContent = updateRoundTextContent(roundWinner, e.target.innerText, computerChoice);
+//     })
+// })
 
-        roundText.textContent = updateRoundTextContent(roundWinner, e.target.innerText, computerChoice);
-
-    })
+buttons.forEach(button => {
+    button.addEventListener('click', click);
 })
+
+
+
+
+// if(playerScore == 5) roundTextContent.textContent = `Player won with a score of ${playerScore} against ${computerScore}`;
+// if(computerScore == 5) roundTextContent.textContent = `Computer won with a score of ${computerScore} against ${playerScore}`;
 
